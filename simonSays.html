@@ -1,0 +1,348 @@
+<!-- Extreme Simon Says -->
+<!-- Graphics/GUI: Rony Singh. For more detail of his code, refer to "GraphicsEngine.js" -->
+<!-- Sounds: Najeeb Lakhani. For more detail of his code, refer to "sounds.js" -->
+<!-- Logic: Shawn Parkes. For more detail of his code, refer to "logic.js" -->
+<!-- HTML/Web Page Design (this document): Neil Dunn." -->
+
+<!-- Extreme Simon Says -->
+
+
+<!DOCTYPE html>
+<script src = "GraphicsEngine.js"></script>
+<script src = "sounds.js"></script> 
+<script src = "logic.js"></script>
+
+<html>
+
+	<head>
+		<style>
+
+			body 
+			{
+				background-color: #000000;
+				background-image: url("flames.gif");
+				background-repeat: repeat-x;
+				background-position: 50% 100%;
+				background-attachment: fixed;
+
+			}
+
+			h1 
+			{
+				color: white;
+				text-align: center;
+				font-family: "Consolas";
+
+			}
+
+			#ScoreText
+			{
+				font-family: "Consolas";
+				color: white;
+				font-size: 60px;
+				position: absolute;
+				top: 0px;
+				left: 900px;
+			}
+			
+			#ScoreNum
+			{
+				font-family: "Consolas";
+				color: white;
+				font-size: 60px;
+				position: absolute;
+				top: 0px;
+				left: 1110px;
+			}
+						
+			
+			p
+			{
+				font-family: "Consolas";
+				color: white;
+				font-size: 16px;
+				position:relative;
+				left: 890px;
+				bottom: 700px;
+			}
+			
+			canvas 
+			{
+				background-color: #000000;
+				margin-right: auto;
+				padding-left: 0; 
+				padding-right: 0; 
+				display: block; 
+			}
+
+			
+			button
+			{
+				position:relative;
+				bottom: 100px;
+				left: 1000px;
+				font-family:Trebuchet MS;
+				font-size:15px;
+				font-weight:bold;
+				padding:6px 24px;
+				background-color: red;
+				border:1px solid #d02718;
+			}
+			
+
+
+		</style>
+
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
+		<script>
+
+		//Function by Shawn Parkes. Allows the page to reload without hitting the refresh button.
+		function reloadPage()
+		{
+			location.reload();
+		}
+
+
+
+		</script>
+	</head>
+
+	<body onload = "javascript:startMenu();"  onclick = "javascript:updateStatus();"> <!-- Loads the start menu upon loading the page -->
+	<div id = "game">
+
+	
+
+	</div>
+	
+	
+	  <script type="text/javascript">
+      setVolume();
+    </script>
+	<audio id="sound" autoplay="true" loop="infinite">
+
+    <source src="Sounds/background.wav" type="audio/wav">
+    </audio>
+	
+	
+	<p id ="ScoreText">Score: </p> <!-- Shows the score on the right of the game. -->
+	<p id ="ScoreNum">0</p>
+
+	<p>---------------------------------------------------------------</p> <!-- Information regarding development, also on the right of the game. -->
+	<p>Game: Extreme Simon Says</p>
+	<p>Developers: Rony Singh, Neil Dunn, Najeeb Lakhani, Shawn Parkes</p>
+	<p>Class: EECS 368 - Programming Language Paradigms</p>
+	<p>Instructor: Dain Vermaak</p>
+	<p>Version 1.0_Edge </p>
+	<p>---------------------------------------------------------------</p>
+	
+	<p> Once you reach round 3, you will enter stage two. Stage two adds five new buttons, be ready!</p>
+	<p> Once you reach round 5, you will enter stage three. Stage three randomly rotates and shifts the buttons across the board during each flash. Pay close attention!</p>
+
+	
+	</body>
+
+	<script>
+		
+		i = 0 // Keeps track of the index of round
+		timer = 0; // Used for setting timeouts so the board and flash and sound properly
+		var round = []; // Array used to store the colors for the upcoming rounds.
+		j = -1; //Keeps track of the index of the simonBoard.
+
+		function nextRound()
+		{
+			//Takes a random color from Shawn's simon board. For the first stage the colors are red, blue, green, and yellow.
+			var randomColor = Math.floor(Math.random()*(simonGame.simonBoard.length)) 
+			
+			//Pushes that random color onto another array "round" to show the user which buttons to press to advance to the next round.
+			round.push(simonGame.simonBoard[randomColor]);	
+			
+			//Gives the sequence of colors and sounds to the user.
+			function showRound()
+			{
+	
+				
+				if(round[i] == "red") // Example, if the color at the start of the array is "red"
+				{
+					setTimeout(startFlashRed, timer); //..the red button flahses (flashes possible by Rony Singh)
+					setTimeout(playRed, timer);	//..the sound for the red button plays (sounds possible by Najeeb Lakhani)				
+					i++; //Index increments by one
+					timer+= 600; // Timer increases by 600ms, used to keep the sequence of sounds and flashes in a steady rhythm.
+				}			
+				else if(round[i] == "blue") //Same cases hold for all other colors.
+				{
+					setTimeout(startFlashBlue,timer);
+					setTimeout(playBlue, timer);					
+					i++;
+					timer+= 600;
+
+				}
+				else if(round[i] == "green")
+				{
+					setTimeout(startFlashGreen,timer);
+					setTimeout(playGreen, timer);					
+					i++;
+					timer+= 600;
+
+				}			
+				else if(round[i] == "yellow")
+				{
+					setTimeout(startFlashYellow,timer);
+					setTimeout(playYellow, timer);								
+					i++;
+					timer+= 600;
+				}
+				else if(round[i] == "cyan")
+				{
+					setTimeout(startFlashCyan,timer);
+					setTimeout(playCyan, timer);					
+					i++;
+					timer+= 600;
+
+				}
+				else if(round[i] == "brown")
+				{
+					setTimeout(startFlashBrown,timer);
+					setTimeout(playBrown, timer);					
+					i++;
+					timer+= 600;
+
+				}			
+				else if(round[i] == "grey")
+				{
+					setTimeout(startFlashGrey,timer);
+					setTimeout(playGrey, timer);								
+					i++;
+					timer+= 600;
+				}
+				else if(round[i] == "orange")
+				{
+					setTimeout(startFlashBrown,timer);
+					setTimeout(playBrown, timer);					
+					i++;
+					timer+= 600;
+
+				}			
+				else if(round[i] == "purple")
+				{
+					setTimeout(startFlashPurple,timer);
+					setTimeout(playPurple, timer);								
+					i++;
+					timer+= 600;
+				}
+				
+				
+				if(i < round.length)
+				{
+					showRound(); //Recursively calls showRound when the index is less than the length of round
+				}
+				else
+				{
+					i=0;
+					timer = 0;
+				} //Once the index reaches the round's length, the index and timer are set to zero.
+			}
+			
+			//Gives the user 1.5s for preparation before each round.
+			setTimeout(showRound, 1500);
+			
+			
+		}
+		
+		function updateStatus()
+		{
+		
+			var currentColor = getCurrentColor(); //Gets the color of the button that was pressed by the user (Made by Rony Singh)
+			if(currentColor == "red") //For example, if the user pressed the red button
+			{
+				playRed(); //A random, distracting sound is played (made by Najeeb Lakhani)
+				simonGame.round.push("red"); //Red is pushed onto Shawn's round board.
+			}
+			else if(currentColor == "blue")
+			{
+				playBlue();
+				simonGame.round.push("blue");
+			}
+			else if(currentColor == "green")
+			{
+				playGreen();
+				simonGame.round.push("green");
+			}
+			else if(currentColor == "yellow")
+			{
+				playYellow();
+				simonGame.round.push("yellow");
+			}
+			else if(currentColor == "cyan")
+			{
+				playCyan();
+				simonGame.round.push("cyan");
+			}
+			else if(currentColor == "brown")
+			{
+				playBrown();
+				simonGame.round.push("brown");
+			}
+			else if(currentColor == "grey")
+			{
+				playGrey();
+				simonGame.round.push("grey");
+			}
+			else if(currentColor == "orange")
+			{
+				playOrange();
+				simonGame.round.push("orange");
+			}
+			else if(currentColor == "purple")
+			{
+				playPurple();
+				simonGame.round.push("purple");
+			}
+			
+			//Second stage begins when the user earns five points.
+			//Once the second stage of the game is reached, Shawn's addButton function is called to push the additonal colors onto his simon Board.
+			if(simonGame.round.length == 3)
+			{
+				startGameTwo();
+				simonGame.addButton("cyan");
+				simonGame.addButton("brown");
+				simonGame.addButton("grey");
+				simonGame.addButton("orange");
+				simonGame.addButton("purple");
+			}
+			else if(simonGame.round.length == 5)
+			{
+				startGameThree();
+			}
+			
+
+			//If the user gets the sequence correct
+			if(simonGame.round.length == round.length && simonGame.round[j] == round[j])
+			{
+				simonGame.round = []; //Shawn's simonGame.round board is reset
+				nextRound(); //The next sequence is set
+				j = 0;
+				simonGame.points++; //Increment the score by one
+				document.getElementById("ScoreNum").innerHTML = simonGame.points; //Display on the page
+				randomSound();
+			}
+			else
+			{
+				if(simonGame.round[j] == round[j]) //If the user gives the correct sequence so far but is not at the end of the sequence, it goes to the next index of the round's array.
+				{
+					j++;
+				}
+				else // Game ends when the user clicks a wrong button in the given sequence. The game over screen is displayed.
+				{
+					setTimeout(gameOverGraphic,300); //Rony's Game Over graphics
+					gameOverSound();//Najeeb's Game Over Sound
+					gameOverLogic();//Shawn's Game Over Logic
+					return;
+				}
+			}
+			
+
+		}
+	</script>
+
+</html>
